@@ -1,0 +1,37 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Amigos</title>
+    <style>
+      table {
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 1px solid black;
+        padding: 5pt;
+      }
+    </style>
+  </head>
+  <body>
+  <h1>Amigos</h1>
+    <table>
+      <!-- Cabecera de la tabla -->
+      <tr>
+        <th>Nombre</th>
+        <th>Latitud</th>
+        <th>Longitud</th>
+      </tr>
+      <!-- Cuerpo de la tabla -->
+      {% for amigo in amigos %} {# Esto es sintaxis jinja2 #}
+      <tr>
+        <td>{{amigo.name}}</td>
+        <td>{{amigo.lati}}</td>
+        <td>{{amigo.longi}}</td>
+	<td><a href="/html/edit_amigo/amigo.id">Modificar</a></td>
+        <td><a href="/html/delete_amigo/amigo.id">Borrar</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <a href="/html/new_amigo">Añadir amigo</a>
+  </body>
+</html>
