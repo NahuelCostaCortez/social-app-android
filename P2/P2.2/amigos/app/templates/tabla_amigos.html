@@ -20,6 +20,7 @@
         <th>Nombre</th>
         <th>Latitud</th>
         <th>Longitud</th>
+	<th>Device</th>
       </tr>
       <!-- Cuerpo de la tabla -->
       {% for amigo in amigos %} {# Esto es sintaxis jinja2 #}
@@ -27,8 +28,9 @@
         <td>{{amigo.name}}</td>
         <td>{{amigo.lati}}</td>
         <td>{{amigo.longi}}</td>
-	<td><a href="/html/edit_amigo/amigo.id">Modificar</a></td>
-        <td><a href="/html/delete_amigo/amigo.id">Borrar</a></td>
+	<td>{{amigo.device or ''}}</td>
+	<td><a href="/html/edit_amigo/{{amigo.id}}">Modificar</a></td>
+        <td><a href="/html/delete_amigo/{{amigo.id}}">Borrar</a></td>
       </tr>
       {% endfor %}
     </table>
