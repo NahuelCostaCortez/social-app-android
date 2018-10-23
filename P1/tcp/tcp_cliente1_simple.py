@@ -18,7 +18,7 @@ if arg == 3:
 s.connect((ip,puerto))
 
 times = 0
-while times != 4:
+while times != 5:
     times = times + 1
     s.send(b"ABCDE")
 

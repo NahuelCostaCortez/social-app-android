@@ -2,9 +2,9 @@ import socket
 import sys
 import time
 
-def recibe_longitud(sd):
+def recibe_longitud():
     # Se convierte el socket en un fichero
-    f = sd.makefile(encoding="utf8", newline="\n")
+    #f = sd.makefile(encoding="utf8", newline="\n")
     longitud = f.readline()   # Lee bytes hasta detectar \n
     # El mensaje retornado es un str, y contiene \r\n al final
     return int(longitud),f
@@ -35,13 +35,14 @@ s.listen(5) # Máximo de clientes en la cola de espera al accept()
 while True:
     print("Esperando un cliente")
     sd, origen = s.accept()
-    #time.sleep(1)
+    time.sleep(1)
     print("Nuevo cliente conectado desde %s, %d" % origen)
     continuar = True
     # Bucle de atención al cliente conectado
+    f = sd.makefile(encoding="utf8", newline="\n")
     while continuar:
         # Primero recibir el mensaje del cliente
-        longitud,f = recibe_longitud(sd)
+        longitud,f = recibe_longitud()
 
         if longitud==0: # Fin de transmision de datos por parte del cliente
             print("Conexión cerrada por el cliente")
@@ -54,6 +55,5 @@ while True:
 
         # Finalmente, enviarle la respuesta 
         longitud = "%d\n" % len(mensaje)
-        print("voy a enviar: ", (bytes(longitud + mensaje, "utf8")))
         sd.sendall(bytes(longitud + mensaje, "utf8"))
 	

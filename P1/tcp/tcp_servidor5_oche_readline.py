@@ -2,10 +2,7 @@ import socket
 import sys
 import time
 
-def recibe_mensaje(sd):
-    print("Vuelvo a recibe mensaje")
-    # Se convierte el socket en un fichero
-    f = sd.makefile(encoding="utf8", newline="\r\n")
+def recibe_mensaje(f):
     mensaje = f.readline()   # Lee bytes hasta detectar \r\n
     # El mensaje retornado es un str, y contiene \r\n al final
     return mensaje
@@ -35,10 +32,12 @@ while True:
     time.sleep(1)
     print("Nuevo cliente conectado desde %s, %d" % origen)
     continuar = True
+    # Se convierte el socket en un fichero
+    f = sd.makefile(encoding="utf8", newline="\r\n")
     # Bucle de atención al cliente conectado
     while continuar:
         # Primero recibir el mensaje del cliente
-        mensaje = recibe_mensaje(sd)  # Nunca enviará más de 80 bytes, aunque tal vez sí menos
+        mensaje = recibe_mensaje(f)  # Nunca enviará más de 80 bytes, aunque tal vez sí menos
 
         # Segundo, quitarle el "fin de línea" que son sus 2 últimos caracteres
         linea = mensaje[:-2]  # slice desde el principio hasta el final -2

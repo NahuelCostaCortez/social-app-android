@@ -32,23 +32,25 @@ while True:
     # Bucle de atención al cliente conectado
     while continuar:
         # Primero recibir el mensaje del cliente
-        mensaje = sd.recv(80)
+        mensaje = sd.recv(2)
         longitud = struct.unpack(">H", mensaje[0:2])
         longitud = longitud[0]
-        mensaje = mensaje[2:2+longitud]
+        print("Recibo",longitud)
+        mensaje = sd.recv(longitud)
         mensaje = str(mensaje, "utf8")
+        print("El mensaje es entonces", mensaje)
 
         if longitud==0: # Fin de transmision de datos por parte del cliente
             print("Conexión cerrada por el cliente")
             sd.close()
             continuar = False
+            break
 
         # Tercero, darle la vuelta
         mensaje = mensaje[::-1]
 
         # Finalmente, enviarle la respuesta 
         lonbytes = struct.pack(">H", len(bytes(mensaje, "utf8")))
-        print(lonbytes + bytes(mensaje, "utf8"))
         sd.sendall(lonbytes + bytes(mensaje, "utf8"))
 
 

@@ -25,7 +25,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #asignamos puerto si lo recibe por linea de comandos
 arg = len(sys.argv)
 if arg == 2:
-    puerto = sys.argv[1]
+    puerto = int(sys.argv[1])
 else:
     puerto = 9999
 

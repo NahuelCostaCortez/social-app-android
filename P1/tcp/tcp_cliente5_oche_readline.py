@@ -1,10 +1,7 @@
 import socket
 import sys
 
-def recibe_mensaje(sd):
-    print("Vuelvo a recibe mensaje")
-    # Se convierte el socket en un fichero
-    f = sd.makefile(encoding="utf8", newline="\r\n")
+def recibe_mensaje(f):
     mensaje = f.readline()   # Lee bytes hasta detectar \r\n
     # El mensaje retornado es un str, y contiene \r\n al final
     return mensaje
@@ -25,7 +22,8 @@ if arg == 3:
 
 # Se conecta al servidor
 s.connect((ip,puerto))
-
+# Se convierte el socket en un fichero
+f = s.makefile(encoding="utf8", newline="\r\n")
 times = 0
 while times != 3:
     print("Envio")
@@ -34,7 +32,7 @@ while times != 3:
 times = 0
 while times != 3:
     times = times + 1
-    mensaje = recibe_mensaje(s)
+    mensaje = recibe_mensaje(f)
     print("Respuesta del servidor: ",mensaje[:-2])
 
 # Cerrar el socket y terminar

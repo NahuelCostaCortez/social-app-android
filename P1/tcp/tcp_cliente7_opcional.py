@@ -24,14 +24,15 @@ while times != 3:
     times = times + 1
     lonbytes = struct.pack(">H", len(bytes(mensaje, "utf8")))
     s.sendall(lonbytes+bytes(mensaje, "utf8"))
-    print(lonbytes+bytes(mensaje, "utf8"))
+    print("Envio: "+mensaje)
 times = 0
 while times != 3:
     times = times + 1
-    mensaje = s.recv(80)
+    mensaje = s.recv(2)
     longitud = struct.unpack(">H", mensaje[0:2])
     longitud = longitud[0]
-    mensaje = mensaje[2:2 + longitud]
+    #mensaje = mensaje[2:2 + longitud]
+    mensaje = s.recv(longitud)
     mensaje = str(mensaje, "utf8")
     print("Respuesta del servidor: ",mensaje)
 

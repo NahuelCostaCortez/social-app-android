@@ -1,9 +1,9 @@
 import socket
 import sys
 
-def recibe_longitud(sd):
+def recibe_longitud():
     # Se convierte el socket en un fichero
-    f = sd.makefile(encoding="utf8", newline="\n")
+    #f = sd.makefile(encoding="utf8", newline="\n")
     longitud = f.readline()   # Lee bytes hasta detectar \n
     # El mensaje retornado es un str, y contiene \r\n al final
     return int(longitud),f
@@ -33,13 +33,15 @@ mensaje = "ABCDE"
 while times != 3:
     times = times + 1
     longitud  = "%d\n" % len(bytes(mensaje, "utf8"))
-    print("voy a enviar: ", (bytes(longitud + mensaje, "utf8")))
+    print("voy a enviar: ", mensaje)
     s.sendall(bytes(longitud + mensaje, "utf8"))
 times = 0
+f = s.makefile(encoding="utf8", newline="\n")
 while times != 3:
     times = times + 1
-    longitud,f = recibe_longitud(s)
-    mensaje = recv_resto_mensaje(longitud,f)
+    longitud,f = recibe_longitud()
+    mensaje = recv_resto_mensaje(longitud,f) 
+    #mensaje = s.recv(80)
     print("Respuesta del servidor: ",mensaje)
 
 # Indicar fin de mensajes. Cerrar el socket y terminar
