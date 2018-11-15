@@ -1,21 +1,16 @@
-import paramiko
-import getpass
 import base64
-
-#Creamos la conexion
+import paramiko
 client = paramiko.SSHClient()
-client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-client.connect('localhost', username = 'alumno',password = getpass.getpass("Introduce la contraseña: "))
+key = paramiko.Ed25519Key(data=base64.decodestring(b'AAAAC3NzaC1lZDI1NTE5AAAAIOSQwlItmAozlTisbFacV+BVMAmCdDMewC62cxVh/ORZ'))
+client.get_host_keys().add('localhost', 'ssh-ed25519', key)
+print("Introduce la password:")
+password = input()
+client.connect('localhost', username='alumno', password=password)
+print("Conectado!!")
 
-#Abrimos el canal sftp
+# Abrir canal sftp
 sftp = client.open_sftp()
 
-#Listamos las carpetas del usuario
-sftp.chdir(".")  # Cambiar a esa carpeta
 listado = sftp.listdir()
-print("Carpetas en /home/alumno/ :")
 for nombre in listado:
     print(nombre)
-
-#Cerramos la conexion
-client.close()
