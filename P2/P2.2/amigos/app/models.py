@@ -12,6 +12,7 @@ class Amigo(db.Model):
     name = db.Column(db.String(32), unique=True)
     longi = db.Column(db.String(32))
     lati = db.Column(db.String(32))
+    device = db.Column(db.Text())
 
     # Podemos escribir la función siguiente para implementar cómo debe
     # mostrarse un objeto de esta clase si lo imprimes desde python

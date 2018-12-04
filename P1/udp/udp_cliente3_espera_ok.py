@@ -19,7 +19,7 @@ while linea != "FIN":
     num=num+1
     print("Introduce linea a enviar:")
     linea = input()
-    mensaje = str(num)+linea
+    mensaje = str(num)+": "+linea
     s.sendto(mensaje.encode("utf8"), (ip, puerto))
     #Ya envie datagrama, espero por confirmacion
     try:

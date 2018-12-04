@@ -88,7 +88,7 @@ def edit_amigo(id):
         db.session.commit()
     # Y retornamos el JSON con los nuevos datos
     amigodict = {"id": amigo.id, "name": amigo.name,
-                 "longi": amigo.longi, "lati": amigo.lati }
+                 "longi": amigo.longi, "lati": amigo.lati, 'device':amigo.device }
     return jsonify(amigodict)
 
 @api.route("/amigo/<int:id>", methods=["DELETE"]) 

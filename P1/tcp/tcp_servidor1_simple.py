@@ -1,5 +1,6 @@
 import socket
 import sys
+import time
 
 # Creación del socket de escucha
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -24,6 +25,7 @@ while True:
     print("Esperando un cliente")
     sd, origen = s.accept()
     print("Nuevo cliente conectado desde %s, %d" % origen)
+    time.sleep(1)
     continuar = True
     # Bucle de atención al cliente conectado
     while continuar:
