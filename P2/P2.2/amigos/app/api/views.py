@@ -2,6 +2,7 @@ from flask import request, abort, jsonify
 from .. import db
 from . import api
 from ..models import Amigo
+from .. import fcm
 @api.route("/amigo/<int:id>")
 def get_amigo(id):
     """
@@ -89,6 +90,7 @@ def edit_amigo(id):
     # Y retornamos el JSON con los nuevos datos
     amigodict = {"id": amigo.id, "name": amigo.name,
                  "longi": amigo.longi, "lati": amigo.lati, 'device':amigo.device }
+    fcm.notificar_amigos("Amigo se mueve")
     return jsonify(amigodict)
 
 @api.route("/amigo/<int:id>", methods=["DELETE"]) 
@@ -107,6 +109,7 @@ def delete_amigo(id):
     db.session.delete(amigo)
     db.session.commit()
     #En este caso no hay nada que retornar, pero es habitual hacer que el código de estado HTTP sea 204 "No content" en lugar de 200 "OK"
+    fcm.notificar_amigos("Amigo borrado")
     return ('', 204) 
 
 @api.route("/amigos", methods=["POST"]) 
@@ -140,4 +143,5 @@ def new_amigo():
     # Y retornamos el JSON con los datos del nuevo amigo
     amigodict = {"id": amigo.id, "name": amigo.name,
                  "longi": amigo.longi, "lati": amigo.lati,'device':amigo.device}
+    fcm.notificar_amigos("Nuevo amigo")
     return jsonify(amigodict)

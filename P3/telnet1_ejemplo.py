@@ -1,5 +1,5 @@
-import telnetlib
 import getpass
+import telnetlib
 
 HOST = "localhost"
 user = input("Enter your remote account: ")

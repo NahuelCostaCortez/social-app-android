@@ -1,3 +1,4 @@
-python3: can't open file 'udp_servidor3_con_ok.py': [Errno 2] No such file or directory
-python3: can't open file 'udp_servidor3_con_ok.py': [Errno 2] No such file or directory
-python3: can't open file 'udp_servidor3_con_ok.py': [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "udp_servidor3_con_ok.py", line 10, in <module>
+    s.bind(("", puerto))
+OSError: [Errno 98] Address already in use
