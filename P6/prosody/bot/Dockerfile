@@ -7,4 +7,4 @@ WORKDIR /bot
 
 EXPOSE 5000
 
-CMD python MiBot.py
+CMD python MiBotContenedor.py
