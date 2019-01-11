@@ -98,7 +98,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Crear una petición
-        String url ="https://utor.serveo.net/api/amigo/byName/"+this.mUserName;
+        String url ="https://turbo.serveo.net/api/amigo/byName/"+this.mUserName;
         JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 // Implementar el interfaz Listener que debe tener el método
                 // onResponse, que será llamado al recibir la respuesta del servidor
@@ -144,13 +144,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
         System.out.println("Llego a actualizar la localización con lati: "+lati +"y longi: "+longi);
-        String url_put = "https://utor.serveo.net/api/amigo/"+this.id;
+        String url_put = "https://turbo.serveo.net/api/amigo/"+this.id;
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url_put, jsonToSend,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                            System.out.println("Actualizo la localizacion en BD: "+id);
+                        System.out.println("Actualizo la localizacion en BD: "+id);
                     }
                 },
                 // Implementar el interfaz ErrorListener, que debe tener el método
@@ -172,7 +172,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         RequestQueue queue = Volley.newRequestQueue(this);
 
         // Crear una petición
-        String url ="https://utor.serveo.net/api/amigos";
+        String url ="https://turbo.serveo.net/api/amigos";
         JsonArrayRequest jsonRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 // Implementar el interfaz Listener que debe tener el método
                 // onResponse, que será llamado al recibir la respuesta del servidor
@@ -230,7 +230,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             e.printStackTrace();
         }
 
-        String url_put = "https://utor.serveo.net/api/amigo/"+this.id;
+        String url_put = "https://turbo.serveo.net/api/amigo/"+this.id;
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url_put, jsonToSend,
                 new Response.Listener<JSONObject>() {
@@ -343,10 +343,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void paintAmigosList() {
+        mMap.clear();
+        System.out.println("Voy a pintar a los amigos:");
         for(int i = 0; i< amigos.size(); i++){
-            mMap.addMarker(new MarkerOptions()
-                            .position(new LatLng(amigos.get(i).getLatitud(), amigos.get(i).longitud)));
+            System.out.println("Amigo "+amigos.get(i).getNombre()+"-> Latitud "+amigos.get(i).getLatitud()+" Longitud: "+amigos.get(i).getLongitud());
+            LatLng amigopos = new LatLng(amigos.get(i).getLatitud(), amigos.get(i).getLongitud());
+            mMap.addMarker(new MarkerOptions().position(amigopos).title("Marker of Amigo"));
+            //mMap.addMarker(new MarkerOptions()
+              //      .position(new LatLng(amigos.get(i).getLatitud(), amigos.get(i).getLongitud())));
         }
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(0, 0)));
 
     }
 
@@ -365,12 +371,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LatLng sydney = new LatLng(-34, 151);
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-        mMap.addMarker(new MarkerOptions()
-                .position(new LatLng(10, 10)));
+        //mMap.addMarker(new MarkerOptions()
+          //      .position(new LatLng(10, 10)));
         getAmigosList();
     }
 
