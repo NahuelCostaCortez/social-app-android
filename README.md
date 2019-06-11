@@ -27,6 +27,7 @@ La aplicación web se puede lanzar mediante los siguientes scripts, que son aloj
 - lanza-basedatos.sh: lanza el contenedor con la base de datos
 - lanza-flask.sh: lanza el contenedor con la aplicación 
 - lanza-nginx.sh: lanza el contenedor con el servidor que aloja la aplicación 
+
 Los contenedores son desplegados con Docker.
 
 La aplicación una vez lanzada es accesible localmente:
