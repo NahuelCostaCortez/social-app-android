@@ -12,12 +12,12 @@ Como servidor de aplicaciones se utiliza gunicorn.
 Los datos se almacenan en una base de datos MariaDB.
 
 La API REST da soporte a las siguientes peticiones:
-GET /amigo/id
-GET /amigo/byName/name
-GET /amigos
-PUT /amigo/id
-DELETE /amigo/id
-POST /amigos
+-GET /amigo/id
+-GET /amigo/byName/name
+-GET /amigos
+-PUT /amigo/id
+-DELETE /amigo/id
+-POST /amigos
 
 La arquitectura de despliegue es la siguiente:
 
