@@ -1,4 +1,0 @@
-Traceback (most recent call last):
-  File "udp_servidor3_con_ok.py", line 10, in <module>
-    s.bind(("", puerto))
-OSError: [Errno 98] Address already in use
